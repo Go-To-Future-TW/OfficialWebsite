@@ -1,0 +1,44 @@
+{
+  "default": {
+    "title": "邁向未來",
+    "description": "一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。",
+    "image": "/bityo_bg_circle.png",
+    "type": "website",
+    "keyword": "邁向未來,邁向未來股份有限公司,GoToFuture,Go-To-Future",
+    "author": "TershiXia",
+    "copyright": "邁向未來"
+  },
+  "Index": {
+    "title": "邁向未來",
+    "description": "一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。",
+    "image": "/bityo_bg_circle.png",
+    "type": "website",
+    "keyword": "邁向未來,邁向未來股份有限公司,GoToFuture,Go-To-Future",
+    "author": "TershiXia",
+    "copyright": "邁向未來"
+  },
+  "NotFound": {
+    "title": "404頁面找不到｜邁向未來",
+    "description": "喔不！QAQ，找不到這個頁面！",
+    "image": "/bityo_bg_circle.png",
+    "keyword": "邁向未來,邁向未來股份有限公司,GoToFuture,Go-To-Future",
+    "author": "TershiXia",
+    "copyright": "邁向未來"
+  },
+  "About": {
+    "title": "關於我們｜邁向未來",
+    "description": "一個致力於研究區塊鏈和程式設計的台灣團隊，發展區塊鏈教育。",
+    "image": "/bityo_bg_circle.png",
+    "keyword": "邁向未來,邁向未來股份有限公司,GoToFuture,Go-To-Future",
+    "author": "TershiXia",
+    "copyright": "邁向未來"
+  },
+  "APIDoc": {
+    "title": "API 文件｜邁向未來",
+    "description": "幣友提供多個API服務，讓您更方便的使用我們的服務，查看我們的API文件，開始使用我們的服務。",
+    "image": "/bityo_bg_circle.png",
+    "keyword": "邁向未來,邁向未來股份有限公司,GoToFuture,Go-To-Future",
+    "author": "TershiXia",
+    "copyright": "邁向未來"
+  }
+}

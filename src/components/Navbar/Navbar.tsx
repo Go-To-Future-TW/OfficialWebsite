@@ -1,12 +1,11 @@
 import type { NavbarProps } from "@/types/Navbar/Navbar";
 import Image from "next/image";
 // import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "nextjs-toploader/app";
+import { redirect } from 'next/navigation';
 // import type { User } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
 
 // image
-import NoHead from "@/images/NoHead.png";
+// import NoHead from "@/images/NoHead.png";
 
 // const handleUser = async () => {
 // 	const supabase = await createClient();
@@ -20,7 +19,7 @@ import NoHead from "@/images/NoHead.png";
 // };
 
 const Navbar = (props: NavbarProps) => {
-	const router = useRouter();
+
 	// const [user, setUser] = useState<User | null>(null);
 
 	// useEffect(() => {
@@ -35,7 +34,7 @@ const Navbar = (props: NavbarProps) => {
 
 	return (
 		<div
-			className={`w-full h-[68px] bg-[#F3F7FA] flex items-center ${props.className}`}
+			className={`w-full h-[50px] bg-gray-400 flex items-center px-5 ${props.className}`}
 		>
 			{/* 左邊 ICON */}
 			<div>
@@ -58,7 +57,7 @@ const Navbar = (props: NavbarProps) => {
 			</div>
 
 			{/* 右邊頭貼 */}
-			<div className="">
+			{/* <div className="">
 				<Image
 					src={NoHead}
 					alt="login"
@@ -68,7 +67,7 @@ const Navbar = (props: NavbarProps) => {
 					priority
 					loading="eager"
 				/>
-			</div>
+			</div> */}
 
 			{/* 右邊使用者名稱 */}
 			<div className="flex gap-2">
