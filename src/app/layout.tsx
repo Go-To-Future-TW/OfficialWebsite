@@ -1,16 +1,29 @@
+import type { Metadata } from "next";
 import "@/styles/globals.css";
-const RootLayout = ({
+import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "react-hot-toast";
+
+export const metadata: Metadata = {
+  title: "manage setting",
+  description: "",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) => {
+}>) {
   return (
     <html lang="en">
-      <body >
-        {children}
+      <body className="overflow-x-auto">
+        <NextTopLoader color="#17FFAC" />
+        <Toaster position="top-center" reverseOrder={false} />
+
+        <div id="responsive-wrapper">{children}</div>
       </body>
     </html>
   );
 }
-
-export default RootLayout;
