@@ -12,18 +12,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW">
-      <body className="overflow-x-auto min-h-screen flex flex-col">
-        <NextTopLoader color="#17FFAC" showSpinner={false} />
-        <Toaster position="top-center" reverseOrder={false} />
+      <body className="overflow-x-auto flex flex-col">
+        <main className="min-h-screen flex flex-col">
+          <NextTopLoader color="#17FFAC" showSpinner={false} />
+          <Toaster position="top-center" reverseOrder={false} />
 
-        <div id="responsive-wrapper" className="flex-1">
-          <div className="min-h-screen bg-white">
+          <div className="bg-white">
             <Navbar title={SEO.default.title} logo={SEO.default.image} />
             {children}
           </div>
-        </div>
 
-        <Footer />
+          <Footer />
+        </main>
       </body>
     </html>
   );
