@@ -62,7 +62,7 @@ export default function AboutPage() {
               年，我們是一群對技術有潔癖的開發者。我們不套用廉價的模板，而是為每個客戶量身打造最適合的數位解決方案。
             </p>
             <Link href="/quote">
-              <button className="bg-white text-black px-6 py-3 rounded-md font-bold hover:bg-gray-200 transition">
+              <button type="button" className="bg-white text-black px-6 py-3 rounded-md font-bold hover:bg-gray-200 transition">
                 與我們合作
               </button>
             </Link>

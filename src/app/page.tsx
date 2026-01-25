@@ -39,7 +39,7 @@ const Home = () => {
 
         <div className="flex flex-col sm:flex-row gap-4">
           <Link href="/quote">
-            <button className="bg-[#0E0E0E] text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-[#383434] transition shadow-lg active:scale-95">
+            <button type="button" className="bg-[#0E0E0E] text-white px-8 py-4 rounded-md font-bold text-lg hover:bg-[#383434] transition shadow-lg active:scale-95">
               立即免費估價
             </button>
           </Link>

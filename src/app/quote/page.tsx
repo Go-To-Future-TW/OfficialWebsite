@@ -189,6 +189,7 @@ export default function QuotePage() {
             </div>
 
             <button
+              type="button"
               onClick={() => window.location.reload()}
               className="text-neutral-500 hover:text-black underline"
             >
@@ -204,7 +205,7 @@ export default function QuotePage() {
           >
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-[#1A1A1A]">
+                <label htmlFor="type" className="text-sm font-bold text-[#1A1A1A]">
                   您的稱呼：
                 </label>
                 <Input
@@ -216,7 +217,7 @@ export default function QuotePage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-bold text-[#1A1A1A]">
+                <label htmlFor="email" className="text-sm font-bold text-[#1A1A1A]">
                   聯絡 Email：
                 </label>
                 <Input
@@ -231,7 +232,7 @@ export default function QuotePage() {
 
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-bold text-[#1A1A1A]">
+                <label htmlFor="type" className="text-sm font-bold text-[#1A1A1A]">
                   專案類型
                 </label>
                 <div className="relative">
@@ -273,7 +274,7 @@ export default function QuotePage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-bold text-[#1A1A1A]">
+                <label htmlFor="type" className="text-sm font-bold text-[#1A1A1A]">
                   預算範圍
                 </label>
                 <div className="relative">
@@ -295,7 +296,7 @@ export default function QuotePage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-bold text-[#1A1A1A]">
+              <label htmlFor="type" className="text-sm font-bold text-[#1A1A1A]">
                 需求描述
               </label>
               <textarea

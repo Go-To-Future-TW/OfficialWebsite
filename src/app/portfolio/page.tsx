@@ -26,12 +26,12 @@ export default function PortfolioPage() {
 
         <div className="flex gap-4">
           <Link href="/">
-            <button className="px-6 py-2 rounded-md font-medium text-neutral-600 hover:bg-gray-100 transition">
+            <button type="button" className="px-6 py-2 rounded-md font-medium text-neutral-600 hover:bg-gray-100 transition">
               回首頁
             </button>
           </Link>
           <Link href="/quote">
-            <button className="bg-[#0E0E0E] text-white px-6 py-2 rounded-md font-bold hover:bg-[#383434] transition">
+            <button type="button" className="bg-[#0E0E0E] text-white px-6 py-2 rounded-md font-bold hover:bg-[#383434] transition">
               先去估價
             </button>
           </Link>

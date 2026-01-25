@@ -50,7 +50,7 @@ const Navbar = (props: NavbarProps) => {
               ))}
             </div>
             <Link href="/quote">
-              <button className="bg-[#0E0E0E] text-white px-5 py-2.5 rounded-md font-bold text-sm hover:bg-[#383434] transition shadow-sm active:scale-95">
+              <button type="button" className="bg-[#0E0E0E] text-white px-5 py-2.5 rounded-md font-bold text-sm hover:bg-[#383434] transition shadow-sm active:scale-95">
                 專案估價
               </button>
             </Link>
@@ -58,6 +58,7 @@ const Navbar = (props: NavbarProps) => {
 
           <div className="md:hidden flex items-center">
             <button
+              type="button"
               onClick={() => setIsOpen(true)}
               className="p-2 text-neutral-600 hover:text-black focus:outline-none"
             >
@@ -70,6 +71,7 @@ const Navbar = (props: NavbarProps) => {
                 stroke="currentColor"
                 className="w-6 h-6"
               >
+                <title>開啟選單</title>
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -86,6 +88,7 @@ const Navbar = (props: NavbarProps) => {
           {/* 關閉按鈕 */}
           <div className="flex justify-end p-6">
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
               className="p-2 text-neutral-500 hover:text-black transition"
             >
@@ -98,6 +101,7 @@ const Navbar = (props: NavbarProps) => {
                 stroke="currentColor"
                 className="w-8 h-8"
               >
+                <title>關閉選單</title>
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -121,7 +125,7 @@ const Navbar = (props: NavbarProps) => {
             ))}
 
             <Link href="/quote" onClick={() => setIsOpen(false)}>
-              <button className="bg-[#0E0E0E] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#383434] transition shadow-lg mt-4">
+              <button type="button" className="bg-[#0E0E0E] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#383434] transition shadow-lg mt-4">
                 立即專案估價
               </button>
             </Link>
