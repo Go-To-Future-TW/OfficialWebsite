@@ -3,10 +3,27 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Link from "next/link";
-import SEO from "@/config/SEO.json";
 import Navbar from "@/components/Navbar/Navbar";
 import Input from "@/components/Input/Input";
 import LoginBtn from "@/components/Button/LoginBtn";
+import type { Metadata } from "next";
+import SEO from "@/config/SEO.json";
+
+export const metadata: Metadata = {
+  title: SEO.Quote.title,
+  description: SEO.Quote.description,
+  openGraph: {
+    title: SEO.Quote.title,
+    description: SEO.Quote.description,
+    images: [SEO.Quote.image],
+    type: "website",
+  },
+  twitter: {
+    title: SEO.Quote.title,
+    description: SEO.Quote.description,
+    images: [SEO.Quote.image],
+  },
+};
 
 const PRICING_RULES: Record<string, number> = {
   // 輕量級

@@ -4,8 +4,19 @@ import Navbar from "@/components/Navbar/Navbar";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "精選案例 | 邁向未來",
-  description: "查看我們協助客戶打造的數位產品與成功案例。",
+  title: SEO.Portfolio.title,
+  description: SEO.Portfolio.description,
+  openGraph: {
+    title: SEO.Portfolio.title,
+    description: SEO.Portfolio.description,
+    images: [SEO.Portfolio.image],
+    type: "website",
+  },
+  twitter: {
+    title: SEO.Portfolio.title,
+    description: SEO.Portfolio.description,
+    images: [SEO.Portfolio.image],
+  },
 };
 
 export default function PortfolioPage() {

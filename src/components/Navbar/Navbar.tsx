@@ -84,7 +84,7 @@ const Navbar = (props: NavbarProps) => {
       </nav>
 
       {isOpen && (
-        <div className="fixed inset-0 z-[60] bg-white flex flex-col animate-fade-in">
+        <div className="fixed inset-0 z-60 bg-white flex flex-col animate-fade-in">
           {/* 關閉按鈕 */}
           <div className="flex justify-end p-6">
             <button

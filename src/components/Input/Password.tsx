@@ -14,7 +14,7 @@ const PasswordInput = (props: PasswordInputProps) => {
 			<input
 				type={visible ? "text" : "password"}
 				placeholder={props.placeholder}
-				className={`w-full border-[1px] rounded-[6px] p-2 pr-10 border-[#D3D3D3] bg-white ${props.className}`}
+				className={`w-full border rounded-md p-2 pr-10 border-[#D3D3D3] bg-white ${props.className}`}
 				onChange={props.onChange}
 			/>
 			<button

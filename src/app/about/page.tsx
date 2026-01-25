@@ -4,8 +4,19 @@ import Navbar from "@/components/Navbar/Navbar";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "關於我們 | 邁向未來",
-  description: "我們是專注於高效能網站開發與數位轉型的技術團隊。",
+  title: SEO.About.title,
+  description: SEO.About.description,
+  openGraph: {
+    title: SEO.About.title,
+    description: SEO.About.description,
+    images: [SEO.About.image],
+    type: "website",
+  },
+  twitter: {
+    title: SEO.About.title,
+    description: SEO.About.description,
+    images: [SEO.About.image],
+  },
 };
 
 export default function AboutPage() {

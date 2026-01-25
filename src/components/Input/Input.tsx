@@ -13,7 +13,7 @@ const Input = (props: InputProps) => {
 			id={props.id}
 			placeholder={props.placeholder}
 			onChange={props.onChange}
-			className={`text-sm font-normal leading-[22px] border-[1px] border-neutral-200 rounded-sm px-3 py-[9px] focus:outline-none focus:border-[#0E0E0E] focus:ring-[1px] ${props.value ? "text-[#1A1A1A]" : "text-neutral-400"}`}
+			className={`text-sm font-normal leading-5.5 border border-neutral-200 rounded-sm px-3 py-2.25 focus:outline-none focus:border-[#0E0E0E] focus:ring-[1px] ${props.value ? "text-[#1A1A1A]" : "text-neutral-400"}`}
 		/>
 	);
 };
