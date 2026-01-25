@@ -1,83 +1,135 @@
-import type { NavbarProps } from "@/types/Navbar/Navbar";
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
-// import { createClient } from "@/lib/supabase/client";
-import { redirect } from 'next/navigation';
-// import type { User } from "@supabase/supabase-js";
-
-// image
-// import NoHead from "@/images/NoHead.png";
-
-// const handleUser = async () => {
-// 	const supabase = await createClient();
-// 	const { data, error } = await supabase.auth.getUser();
-
-// 	if (error || !data?.user) {
-// 		return null;
-// 	}
-
-// 	return data.user;
-// };
+import type { NavbarProps } from "@/types/Navbar/Navbar";
 
 const Navbar = (props: NavbarProps) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-	// const [user, setUser] = useState<User | null>(null);
+  const navLinks = [
+    { name: "首頁", href: "/" },
+    { name: "關於我們", href: "/about" },
+    { name: "精選案例", href: "/portfolio" },
+  ];
 
-	// useEffect(() => {
-	// 	handleUser().then((userData) => {
-	// 		if (userData) {
-	// 			setUser(userData);
-	// 		} else {
-	// 			router.push("/login");
-	// 		}
-	// 	});
-	// }, [router]);
+  return (
+    <>
+      <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-neutral-100">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center gap-3 hover:opacity-80 transition group"
+          >
+            {props.logo && (
+              <div className="w-9 h-9 relative rounded-full overflow-hidden bg-gray-50 border border-gray-100 shadow-sm group-hover:scale-105 transition">
+                <Image
+                  src={props.logo}
+                  alt={props.title || "Logo"}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <span className="font-bold text-xl text-[#1A1A1A] tracking-tight">
+              {props.title || "Bityo"}
+            </span>
+          </Link>
 
-	return (
-		<div
-			className={`w-full h-[50px] bg-gray-400 flex items-center px-5 ${props.className}`}
-		>
-			{/* 左邊 ICON */}
-			<div>
-				<Image
-					src={props.logo}
-					alt="login"
-					width={20}
-					height={20}
-					className="w-5 h-5 mr-3"
-					priority
-					loading="eager"
-				/>
-			</div>
+          <div className="hidden md:flex items-center gap-2">
+            <div className="flex items-center gap-1 mr-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="px-4 py-2 text-sm font-medium text-neutral-600 hover:text-black hover:bg-gray-50 rounded-md transition"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+            <Link href="/quote">
+              <button className="bg-[#0E0E0E] text-white px-5 py-2.5 rounded-md font-bold text-sm hover:bg-[#383434] transition shadow-sm active:scale-95">
+                專案估價
+              </button>
+            </Link>
+          </div>
 
-			{/* 左邊標題 */}
-			<div className="grow">
-				<p className="text-xl font-medium leading-[30px] text-[#040404]">
-					{props.title}
-				</p>
-			</div>
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="p-2 text-neutral-600 hover:text-black focus:outline-none"
+            >
+              {/* 漢堡 */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </nav>
 
-			{/* 右邊頭貼 */}
-			{/* <div className="">
-				<Image
-					src={NoHead}
-					alt="login"
-					width={20}
-					height={20}
-					className="w-5 h-5 mr-3"
-					priority
-					loading="eager"
-				/>
-			</div> */}
+      {isOpen && (
+        <div className="fixed inset-0 z-[60] bg-white flex flex-col animate-fade-in">
+          {/* 關閉按鈕 */}
+          <div className="flex justify-end p-6">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-2 text-neutral-500 hover:text-black transition"
+            >
+              {/* 叉叉 */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
 
-			{/* 右邊使用者名稱 */}
-			<div className="flex gap-2">
-				<p className="text-base font-medium leading-[24px] text-[#040404]">
-					{/* {user?.email} */}
-				</p>
-				<p className="text-[#7C7C7C] text-base">▼</p>
-			</div>
-		</div>
-	);
+          {/* 選單 */}
+          <div className="flex flex-col items-center justify-center gap-8 mt-10">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-2xl font-bold text-neutral-800 hover:text-black transition"
+              >
+                {link.name}
+              </Link>
+            ))}
+
+            <Link href="/quote" onClick={() => setIsOpen(false)}>
+              <button className="bg-[#0E0E0E] text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-[#383434] transition shadow-lg mt-4">
+                立即專案估價
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Navbar;
