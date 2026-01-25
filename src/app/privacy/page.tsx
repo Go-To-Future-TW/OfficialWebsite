@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import SEO from "@/config/SEO.json";
-import Navbar from "@/components/Navbar/Navbar";
 
 export const metadata: Metadata = {
   title: SEO.Privacy.title,
@@ -20,8 +19,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar title={SEO.Privacy.title} logo={SEO.Privacy.image} />
+    <div className="bg-white">
 
       <main className="max-w-3xl mx-auto px-6 py-20 text-[#1A1A1A]">
         <h1 className="text-3xl font-bold mb-8">隱私權政策</h1>

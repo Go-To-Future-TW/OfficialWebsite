@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import SEO from "@/config/SEO.json";
-import Navbar from "@/components/Navbar/Navbar";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -21,8 +20,7 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar title={SEO.About.title} logo={SEO.About.image} />
+    <div className="bg-white">
 
       <main className="flex flex-col items-center justify-center min-h-[80vh] px-6 text-center">
         <h1 className="text-3xl md:text-4xl font-extrabold mb-4 text-[#1A1A1A]">

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import SEO from "@/config/SEO.json";
-import Navbar from "@/components/Navbar/Navbar";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -21,8 +20,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar title={SEO.About.title} logo={SEO.About.image} />
+    <div className="bg-white">
 
       <main className="max-w-4xl mx-auto px-6 py-20">
         <div className="text-center mb-16">

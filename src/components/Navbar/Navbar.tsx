@@ -33,7 +33,7 @@ const Navbar = (props: NavbarProps) => {
               </div>
             )}
             <span className="font-bold text-xl text-[#1A1A1A] tracking-tight">
-              {props.title || "Bityo"}
+              {props.title || "邁向未來"}
             </span>
           </Link>
 

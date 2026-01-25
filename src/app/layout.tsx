@@ -2,6 +2,8 @@ import "@/styles/globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
+import SEO from "@/config/SEO.json";
 
 export default function RootLayout({
   children,
@@ -15,7 +17,10 @@ export default function RootLayout({
         <Toaster position="top-center" reverseOrder={false} />
 
         <div id="responsive-wrapper" className="flex-1">
-          {children}
+          <div className="min-h-screen bg-white">
+            <Navbar title={SEO.default.title} logo={SEO.default.image} />
+            {children}
+          </div>
         </div>
 
         <Footer />
