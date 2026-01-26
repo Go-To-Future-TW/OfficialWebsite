@@ -24,7 +24,7 @@ const Home = () => {
       <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-[#1A1A1A] tracking-tight leading-tight">
         邁向未來的
         <br className="md:hidden" />
-        軟體開發夥伴
+        軟體開發解決方案
       </h1>
 
       <p className="text-lg md:text-xl text-neutral-500 mb-10 max-w-2xl leading-relaxed">

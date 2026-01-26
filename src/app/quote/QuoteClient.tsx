@@ -43,6 +43,44 @@ const BUDGET_CAP: Record<string, number> = {
   "100w+": 99999999,
 };
 
+const PROJECT_TYPES = [
+  {
+    label: "輕量級服務 (快速交付)",
+    options: [
+      { value: "maintenance", label: "輕量網站維運 / Bug修復" },
+      { value: "landing", label: "一頁式活動網頁 (Landing Page)" },
+      { value: "design", label: "純 UI/UX 設計 (Figma)" }
+    ],
+  },
+  {
+    label: "標準開發服務",
+    options: [
+      { value: "website", label: "企業形象官網 (Corporate Site)" },
+      { value: "blog", label: "部落格 / 內容管理系統 (CMS)" },
+      { value: "api", label: "後端 API 開發 / 資料庫串接" },
+      { value: "ai", label: "AI 應用 / Chatbot / 數據分析" }
+    ],
+  },
+  {
+    label: "大型系統開發",
+    options: [
+      { value: "ecommerce", label: "電商平台 (E-Commerce)" },
+      { value: "system", label: "企業內部系統 (ERP/CRM)" },
+      { value: "saas", label: "SaaS 軟體產品開發" },
+      { value: "app", label: "雙平台 App (iOS/Android)" },
+    ],
+  },
+];
+
+const BUDGET_OPTIONS = [
+  { value: "1-5w", label: "1 - 5 萬 (微型專案/小調整)" },
+  { value: "5-10w", label: "5 - 10 萬 (小型專案/MVP)" },
+  { value: "10-30w", label: "10 - 30 萬 (標準商業版)" },
+  { value: "30-50w", label: "30 - 50 萬 (進階客製版)" },
+  { value: "50-100w", label: "50 - 100 萬 (中大型平台)" },
+  { value: "100w+", label: "100 萬以上 (企業級方案)" },
+];
+
 const inputStyle =
   "text-sm font-normal leading-[22px] border-[1px] border-neutral-200 rounded-sm px-3 py-[9px] focus:outline-none focus:border-[#0E0E0E] focus:ring-[1px] w-full bg-white text-[#1A1A1A]";
 
@@ -237,32 +275,15 @@ const QuoteClient = () => {
                     onChange={handleChange}
                     className={inputStyle}
                   >
-                    <optgroup label="輕量級服務 (快速交付)">
-                      <option value="maintenance">
-                        網站維護 / 伺服器代管 / Bug修復
-                      </option>
-                      <option value="landing">
-                        一頁式活動網頁 (Landing Page)
-                      </option>
-                      <option value="design">純 UI/UX 設計 (Figma)</option>
-                    </optgroup>
-
-                    <optgroup label="標準開發服務">
-                      <option value="website">
-                        企業形象官網 (Corporate Site)
-                      </option>
-                      <option value="blog">部落格 / 內容管理系統 (CMS)</option>
-                      <option value="api">後端 API 開發 / 資料庫串接</option>
-                      <option value="ai">AI 應用 / Chatbot / 數據分析</option>
-                    </optgroup>
-
-                    <optgroup label="大型系統開發">
-                      <option value="ecommerce">電商平台 (E-Commerce)</option>
-                      <option value="system">企業內部系統 (ERP/CRM)</option>
-                      <option value="saas">SaaS 軟體產品開發</option>
-                      <option value="app">雙平台 App (iOS/Android)</option>
-                    </optgroup>
-
+                    {PROJECT_TYPES.map((group) => (
+                      <optgroup key={group.label} label={group.label}>
+                        {group.options.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
                     <option value="other">其他諮詢</option>
                   </select>
                 </div>
@@ -279,12 +300,11 @@ const QuoteClient = () => {
                     onChange={handleChange}
                     className={inputStyle}
                   >
-                    <option value="1-5w">1 - 5 萬 (微型專案/小調整)</option>
-                    <option value="5-10w">5 - 10 萬 (小型專案/MVP)</option>
-                    <option value="10-30w">10 - 30 萬 (標準商業版)</option>
-                    <option value="30-50w">30 - 50 萬 (進階客製版)</option>
-                    <option value="50-100w">50 - 100 萬 (大型平台)</option>
-                    <option value="100w+">100 萬以上 (企業級方案)</option>
+                    {BUDGET_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
