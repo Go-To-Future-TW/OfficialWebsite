@@ -12,7 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW">
-      <body className="overflow-x-auto flex flex-col">
+      <body className="overflow-x-auto overflow-y-scroll flex flex-col">
         <main className="min-h-screen flex flex-col">
           <NextTopLoader color="#17FFAC" showSpinner={false} />
           <Toaster position="top-center" reverseOrder={false} />
