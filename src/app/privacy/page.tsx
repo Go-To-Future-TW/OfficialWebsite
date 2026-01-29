@@ -1,8 +1,21 @@
 import type { Metadata } from "next";
 
+import SEO from "@/config/SEO.json";
+
 export const metadata: Metadata = {
-  title: "隱私權政策 | Go to future Development",
-  description: "Go to future Development 隱私權政策與資料使用說明。",
+  title: SEO.Privacy.title,
+  description: SEO.Privacy.description,
+  openGraph: {
+    title: SEO.Privacy.title,
+    description: SEO.Privacy.description,
+    images: [SEO.Privacy.image],
+    type: "website",
+  },
+  twitter: {
+    title: SEO.Privacy.title,
+    description: SEO.Privacy.description,
+    images: [SEO.Privacy.image],
+  },
 };
 
 export default function PrivacyPage() {

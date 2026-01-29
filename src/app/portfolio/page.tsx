@@ -2,11 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Spotlight } from "@/components/ui/Spotlight";
-// import SEO from "@/config/SEO.json";
+import SEO from "@/config/SEO.json";
 
 export const metadata: Metadata = {
-  title: "精選案例 | Bityo Development",
-  description: "查看我們協助客戶成功轉型的數位案例。",
+  title: SEO.Portfolio.title,
+  description: SEO.Portfolio.description,
+  openGraph: {
+    title: SEO.Portfolio.title,
+    description: SEO.Portfolio.description,
+    images: [SEO.Portfolio.image],
+    type: "website",
+  },
+  twitter: {
+    title: SEO.Portfolio.title,
+    description: SEO.Portfolio.description,
+    images: [SEO.Portfolio.image],
+  },
 };
 
 export default function PortfolioPage() {
