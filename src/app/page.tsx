@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-
 import { Spotlight } from "@/components/ui/Spotlight";
 import SEO from "@/config/SEO.json";
 
@@ -39,6 +38,22 @@ const items = [
   },
 ];
 
+const CardContent = ({ item }: { item: (typeof items)[number] }) => (
+  <div
+    className={`
+      block p-8 rounded-3xl bg-neutral-900/40 border border-white/10 hover:bg-neutral-900/60 hover:border-white/20 transition duration-300 group/bento cursor-default
+      ${item.link ? "cursor-pointer" : ""}
+    `}
+  >
+    <h3 className="font-bold text-2xl text-neutral-100 mb-4 mt-2">
+      {item.title}
+    </h3>
+    <p className="text-lg text-neutral-300 leading-relaxed">
+      {item.description}
+    </p>
+  </div>
+);
+
 const Home = () => {
   return (
     <main className="min-h-screen w-full bg-black/96 antialiased bg-grid-white/[0.02] relative overflow-hidden flex flex-col items-center">
@@ -75,23 +90,15 @@ const Home = () => {
 
       <div className="max-w-7xl mx-auto px-6 pb-32 w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {items.map((item) => (
-            <Link
-              key={item.title}
-              href={item.link || "#"}
-              className={`
-                  block p-8 rounded-3xl bg-neutral-900/40 border border-white/10 hover:bg-neutral-900/60 hover:border-white/20 transition duration-300 group/bento cursor-default
-                  ${item.link ? "cursor-pointer" : ""}
-                `}
-            >
-              <h3 className="font-bold text-2xl text-neutral-100 mb-4 mt-2">
-                {item.title}
-              </h3>
-              <p className="text-lg text-neutral-300 leading-relaxed">
-                {item.description}
-              </p>
-            </Link>
-          ))}
+          {items.map((item) =>
+            item.link ? (
+              <Link key={item.title} href={item.link}>
+                <CardContent item={item} />
+              </Link>
+            ) : (
+              <CardContent key={item.title} item={item} />
+            )
+          )}
         </div>
       </div>
     </main>
