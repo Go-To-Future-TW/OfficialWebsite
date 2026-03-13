@@ -123,7 +123,7 @@ const QuoteClient = () => {
     return { min, max };
   };
 
-  const sendDiscordWebhook = async (
+  const sendNotifications = async (
     priceResult: { min: number; max: number } | "consult",
   ) => {
     const typeLabel =
@@ -138,30 +138,28 @@ const QuoteClient = () => {
         ? "需進一步諮詢"
         : `NT$ ${priceResult.min.toLocaleString()} ~ ${priceResult.max.toLocaleString()}`;
 
-    await fetch(
-      "https://discord.com/api/webhooks/1478348013784137883/KCnR8lgY9NekyuCT2BHasKkSuLXRYGvprlwDRb7oZ1O3C1k58lUCb1AEfC_7wLDZxtK2",
-      {
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      type: typeLabel,
+      budget: budgetLabel,
+      priceText,
+      message: formData.message,
+      priceResult,
+    };
+
+    await Promise.allSettled([
+      fetch("/api/discord-webhook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          embeds: [
-            {
-              title: "新詢價單",
-              color: 0x00ff88,
-              fields: [
-                { name: "稱呼", value: formData.name, inline: true },
-                { name: "Email", value: formData.email, inline: true },
-                { name: "專案類型", value: typeLabel, inline: true },
-                { name: "預算範圍", value: budgetLabel, inline: true },
-                { name: "系統預估", value: priceText, inline: true },
-                { name: "需求描述", value: formData.message },
-              ],
-              timestamp: new Date().toISOString(),
-            },
-          ],
-        }),
-      },
-    ).catch(() => {});
+        body: JSON.stringify(payload),
+      }),
+      fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }),
+    ]);
   };
 
   const handleSubmit = () => {
@@ -176,7 +174,7 @@ const QuoteClient = () => {
       const priceResult = calculateQuote();
       setResult(priceResult);
       setStatus("success");
-      sendDiscordWebhook(priceResult);
+      sendNotifications(priceResult);
     }, 1500);
   };
 
