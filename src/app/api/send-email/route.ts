@@ -1,138 +1,5 @@
 import { NextResponse } from "next/server";
-
-export const runtime = "edge";
-
-/** UTF-8 safe base64 encoding */
-function utf8ToBase64(str: string): string {
-  const bytes = new TextEncoder().encode(str);
-  let binary = "";
-  for (const byte of bytes) {
-    binary += String.fromCharCode(byte);
-  }
-  return btoa(binary);
-}
-
-/** Split base64 into 76-char lines (MIME requirement) */
-function wrapBase64(base64: string): string {
-  const lines: string[] = [];
-  for (let i = 0; i < base64.length; i += 76) {
-    lines.push(base64.slice(i, i + 76));
-  }
-  return lines.join("\r\n");
-}
-
-/** Minimal SMTP client using Cloudflare Workers TCP socket */
-async function sendSMTPEmail(config: {
-  host: string;
-  port: number;
-  user: string;
-  pass: string;
-  fromName: string;
-  to: string;
-  subject: string;
-  html: string;
-}) {
-  // connect() is a Cloudflare Workers global for TCP sockets
-  const connectFn = (globalThis as Record<string, unknown>).connect as (
-    address: { hostname: string; port: number },
-    options: { secureTransport: string },
-  ) => {
-    readable: ReadableStream<Uint8Array>;
-    writable: WritableStream<Uint8Array>;
-    close(): Promise<void>;
-  };
-
-  if (!connectFn) {
-    throw new Error("TCP connect() not available in this runtime");
-  }
-
-  const socket = connectFn(
-    { hostname: config.host, port: config.port },
-    { secureTransport: "on" },
-  );
-
-  const writer = socket.writable.getWriter();
-  const reader = socket.readable.getReader();
-  const enc = new TextEncoder();
-  const dec = new TextDecoder();
-  let buf = "";
-
-  async function readResponse(): Promise<string> {
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const lines = buf.split("\r\n");
-      for (let i = 0; i < lines.length; i++) {
-        // SMTP final response line: 3-digit code followed by space
-        if (/^\d{3} /.test(lines[i])) {
-          const resp = lines.slice(0, i + 1).join("\r\n");
-          buf = lines.slice(i + 1).join("\r\n");
-          return resp;
-        }
-      }
-      const { value, done } = await reader.read();
-      if (done) {
-        const rest = buf;
-        buf = "";
-        return rest;
-      }
-      buf += dec.decode(value, { stream: true });
-    }
-  }
-
-  async function cmd(command: string): Promise<string> {
-    await writer.write(enc.encode(`${command}\r\n`));
-    return readResponse();
-  }
-
-  try {
-    // Server greeting
-    await readResponse();
-
-    // EHLO
-    await cmd("EHLO worker");
-
-    // AUTH LOGIN
-    await cmd("AUTH LOGIN");
-    await cmd(btoa(config.user));
-    const authResp = await cmd(btoa(config.pass));
-    if (!authResp.startsWith("235")) {
-      throw new Error(`SMTP auth failed: ${authResp}`);
-    }
-
-    // Envelope
-    await cmd(`MAIL FROM:<${config.user}>`);
-    await cmd(`RCPT TO:<${config.to}>`);
-    await cmd("DATA");
-
-    // Build MIME message
-    const message = [
-      `From: =?UTF-8?B?${utf8ToBase64(config.fromName)}?= <${config.user}>`,
-      `To: ${config.to}`,
-      `Subject: =?UTF-8?B?${utf8ToBase64(config.subject)}?=`,
-      `MIME-Version: 1.0`,
-      `Content-Type: text/html; charset=UTF-8`,
-      `Content-Transfer-Encoding: base64`,
-      `Date: ${new Date().toUTCString()}`,
-      ``,
-      wrapBase64(utf8ToBase64(config.html)),
-      ``,
-      `.`,
-    ].join("\r\n");
-
-    const sendResp = await cmd(message);
-    if (!sendResp.startsWith("250")) {
-      throw new Error(`SMTP send failed: ${sendResp}`);
-    }
-
-    await cmd("QUIT");
-  } finally {
-    try {
-      await writer.close();
-    } catch {
-      // ignore close errors
-    }
-  }
-}
+import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
   try {
@@ -145,18 +12,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const host = process.env.SMTP_HOST;
-    const port = Number(process.env.SMTP_PORT);
-    const user = process.env.SMTP_USER;
-    const pass = process.env.SMTP_PASS;
-
-    if (!host || !user || !pass) {
-      console.error("SMTP environment variables not configured");
-      return NextResponse.json(
-        { error: "SMTP not configured" },
-        { status: 500 },
-      );
-    }
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: true,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
 
     const priceText =
       priceResult === "consult"
@@ -165,7 +29,12 @@ export async function POST(request: Request) {
 
     const year = new Date().getFullYear();
 
-    const html = `<!DOCTYPE html>
+    await transporter.sendMail({
+      from: `"邁向未來" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "感謝您的詢價 — 邁向未來已收到您的需求",
+      html: `
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#f5f5f5;font-family:'Helvetica Neue',Arial,sans-serif;">
@@ -211,17 +80,8 @@ export async function POST(request: Request) {
     </tr>
   </table>
 </body>
-</html>`;
-
-    await sendSMTPEmail({
-      host,
-      port,
-      user,
-      pass,
-      fromName: "邁向未來",
-      to: email,
-      subject: "感謝您的詢價 — 邁向未來已收到您的需求",
-      html,
+</html>
+      `.trim(),
     });
 
     return NextResponse.json({ success: true });

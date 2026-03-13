@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-export const runtime = "edge";
-
 export async function POST(request: Request) {
   try {
     const { name, email, type, budget, priceText, message } =
@@ -46,7 +44,6 @@ export async function POST(request: Request) {
                 value: `\`${email}\``,
                 inline: true,
               },
-              { name: "\u200b", value: "\u200b", inline: true },
               {
                 name: "專案類型",
                 value: type,
