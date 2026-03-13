@@ -17,7 +17,7 @@ const PRICING_RULES: Record<string, number> = {
   saas: 400000,
   app: 250000,
   ai: 80000,
-  other: 10000,
+  other: 0,
 };
 
 const BUDGET_MULTIPLIER: Record<string, number> = {
@@ -109,6 +109,8 @@ const QuoteClient = () => {
   };
 
   const calculateQuote = () => {
+    if (formData.type === "other") return "consult";
+
     const basePrice = PRICING_RULES[formData.type] || 20000;
     const multiplier = BUDGET_MULTIPLIER[formData.budget] || 1;
     const maxBudget = BUDGET_CAP[formData.budget] || 99999999;
